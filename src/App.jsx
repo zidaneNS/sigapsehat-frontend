@@ -1,5 +1,6 @@
 // import Header from "./components/Header";
 import Register from "./components/Register";
+import Login from "./components/Login";
 // import Nav from "./components/Nav";
 // import Footer from "./components/Footer";
 // import Diagnose from "./components/Diagnose";
@@ -12,9 +13,10 @@ import Register from "./components/Register";
 function App() {
 
   return (
-    <div className="App">
-      <Register />
-    </div>
+    <main className="App">
+      {/* <Register /> */}
+      <Login />
+    </main>
   )
 }
 
