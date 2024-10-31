@@ -1,22 +1,44 @@
-// import Header from "./components/Header";
 import Register from "./components/Register";
 import Login from "./components/Login";
-// import Nav from "./components/Nav";
-// import Footer from "./components/Footer";
-// import Diagnose from "./components/Diagnose";
-// import Home from "./components/Home";
-// import Missing from "./components/Missing";
-// import About from "./components/About";
-// import { Route, Routes, useNavigate } from "react-router-dom";
-// import { useState, useEffect } from "react";
+import Layout from "./components/Layout";
+import LinkPage from "./components/LinkPage";
+import RequireAuth from "./components/RequireAuth";
+import Home from "./components/Home";
+import Expert from "./components/Expert";
+import Dev from "./components/Dev";
+import Unauthorized from "./components/Unauthorized";
+import { Routes, Route } from "react-router-dom";
+
+const ROLES = {
+  User: 2001,
+  Expert: 2002,
+  Dev: 2003
+}
 
 function App() {
 
   return (
-    <main className="App">
-      {/* <Register /> */}
-      <Login />
-    </main>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* Public routes */}
+        <Route path="register" element={<Register />}/>
+        <Route path="login" element={<Login />}/>
+        <Route path="/" element={<LinkPage />}/>
+
+        {/* Protected routes */}
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+          <Route path="home" element={<Home />}/>
+          <Route element={<RequireAuth allowedRoles={[ROLES.Expert, ROLES.Dev]} />}>
+            <Route path="expert" element={<Expert />}/>
+          </Route>
+
+          <Route element={<RequireAuth allowedRoles={[ROLES.Dev]} />}>
+            <Route path="dev" element={<Dev />}/>
+          </Route>
+        </Route>
+        <Route path="unauthorized" element={<Unauthorized />} />
+      </Route>
+    </Routes>
   )
 }
 

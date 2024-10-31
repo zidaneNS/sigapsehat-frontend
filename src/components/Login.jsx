@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import axios from "../api/axios";
 import AuthContext from "../context/AuthContext";
 
@@ -8,13 +9,12 @@ const Login = () => {
     const { setAuth } = useContext(AuthContext);
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
-    const [errMsg, setErrMsg] = useState('test');
+    const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         setErrMsg('');
-        console.log('ubah');
-    }, [user, pwd])
+    }, [pwd, user])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,8 +27,12 @@ const Login = () => {
             });
 
             console.log(response?.data);
-            console.log(response.data?.accessToken);
+            console.log(response?.data?.data?.accessToken);
+            console.log(response?.data?.data?.roles);
+            const accessToken = response.data.data.accessToken;
+            const roles = response.data.data.roles;
 
+            setAuth({ user, roles, accessToken });
             setUser('');
             setPwd('');
             setSuccess(true);
@@ -52,7 +56,7 @@ const Login = () => {
         {success ? 
         <section>
             <h1>Success !</h1>
-            <a href="#">landing page</a>
+            <Link to="/home">Home</Link>
         </section> 
         : 
         <section>
