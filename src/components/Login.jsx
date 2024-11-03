@@ -82,6 +82,8 @@ const Login = () => {
                     placeholder="Password"
                 />
                 <p className={errMsg === '' ? "offscreen" : "error"}>{errMsg}</p>
+                <p>doesn't have any account ?</p>
+                <Link to="/register">Sign Up</Link>
                 <button type="submit" disabled={user === '' || pwd === ''}>Submit</button>     
             </form>
         </section>}

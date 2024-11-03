@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from '../api/axios';
 
 const REGISTER_URL = '/register';
@@ -52,7 +53,7 @@ const Register = () => {
             {success ? 
             (<section>
                 <h1>Success</h1>
-                <a href="#">Sign in</a>
+                <Link to="/login">Sign in</Link>
             </section>) 
             : 
             (<section>
@@ -84,7 +85,8 @@ const Register = () => {
                     />
 
                     <p className={errMsg === '' ? "offscreen" : "error"}>{errMsg}</p>
-
+                    <p>Already have account ?</p>
+                    <Link to="/login">Sign in</Link>
                     <p className={validInput || (user === '' && pwd === '' && confirm === '') ? "offscreen" : "instruction"}>Please fill input correctly</p>
 
                     <button type="submit" disabled={!validInput}>Submit</button>

@@ -6,6 +6,7 @@ import RequireAuth from "./components/RequireAuth";
 import Home from "./components/Home";
 import Expert from "./components/Expert";
 import Dev from "./components/Dev";
+import PersistLogin from "./components/PersistLogin";
 import Unauthorized from "./components/Unauthorized";
 import { Routes, Route } from "react-router-dom";
 
@@ -26,14 +27,16 @@ function App() {
         <Route path="/" element={<LinkPage />}/>
 
         {/* Protected routes */}
-        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-          <Route path="home" element={<Home />}/>
-          <Route element={<RequireAuth allowedRoles={[ROLES.Expert, ROLES.Dev]} />}>
-            <Route path="expert" element={<Expert />}/>
-          </Route>
+        <Route element={<PersistLogin />}>
+          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+            <Route path="home" element={<Home />}/>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Expert, ROLES.Dev]} />}>
+              <Route path="expert" element={<Expert />}/>
+            </Route>
 
-          <Route element={<RequireAuth allowedRoles={[ROLES.Dev]} />}>
-            <Route path="dev" element={<Dev />}/>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Dev]} />}>
+              <Route path="dev" element={<Dev />}/>
+            </Route>
           </Route>
         </Route>
         <Route path="unauthorized" element={<Unauthorized />} />
