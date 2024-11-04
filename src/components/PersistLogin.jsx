@@ -9,18 +9,23 @@ const PersistLogin = () => {
     const { auth, persist } = useAuth();
 
     useEffect(() => {
+        let isMounted = true;
+
         const verifyRefreshToken = async () => {
             try {
                 await refresh();
             } catch (err) {
+                console.log('persist error');
                 console.error(err);
             } finally {
-                setIsLoading(false);
+                isMounted && setIsLoading(false);
             }
         }
 
         !auth?.accessToken && persist ? verifyRefreshToken() : setIsLoading(false);
-    }, [])
+
+        return () => isMounted = false
+    }, [auth?.accessToken, persist, refresh])
 
     useEffect(() => {
         console.log('loading', isLoading);

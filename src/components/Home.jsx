@@ -4,8 +4,6 @@ import useRefreshToken from "../hooks/useRefreshToken";
 import useLogout from "../hooks/useLogout";
 
 const Home = () => {
-  const { setAuth } = useAuth();
-  const refresh = useRefreshToken();
   const logout = useLogout();
   const navigate = useNavigate();
 
@@ -21,7 +19,6 @@ const Home = () => {
         <Link to="/expert">Expert</Link>
         <br />
         <Link to="/dev">Dev</Link>
-        <button onClick={refresh}>Refresh</button>
 
         <button onClick={signOut}>Sign Out</button>
     </section>

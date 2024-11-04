@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthContext";
 const LOGIN_URL = '/auth'
 
 const Login = () => {
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth, persist, setPersist } = useContext(AuthContext);
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
@@ -51,6 +51,14 @@ const Login = () => {
             }
         }
     }
+
+    const togglePersist = () => {
+        setPersist(prev => !prev);
+    }
+
+    useEffect(() => {
+        localStorage.setItem("persist", persist);
+    }, [persist])
   return (
     <>
         {success ? 
@@ -84,6 +92,14 @@ const Login = () => {
                 <p className={errMsg === '' ? "offscreen" : "error"}>{errMsg}</p>
                 <p>doesn't have any account ?</p>
                 <Link to="/register">Sign Up</Link>
+
+                <label htmlFor="persist">Remember Me</label>
+                <input 
+                    type="checkbox"
+                    id="persist"
+                    checked={persist}
+                    onChange={togglePersist}
+                />
                 <button type="submit" disabled={user === '' || pwd === ''}>Submit</button>     
             </form>
         </section>}

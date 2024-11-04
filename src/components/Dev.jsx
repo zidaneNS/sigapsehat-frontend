@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 const Dev = () => {
   const [experts, setExperts] = useState();
+  const [users, setUsers] = useState();
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
@@ -12,12 +13,17 @@ const Dev = () => {
 
     const getExpert = async () => {
       try {
-        const response = await axiosPrivate.get('/expert', {
+        const responseExperts = await axiosPrivate.get('/expert', {
           signal: controller.signal
         });
+        const responseUsers = await axiosPrivate.get('/user', {
+          signal: controller.signal
+        })
 
-        console.log(response.data);
-        isMounted && setExperts(response.data.data);
+        if (isMounted) {
+          setExperts(responseExperts.data.data);
+          setUsers(responseUsers.data.data);
+        }
       } catch (err) {
         console.error(err);
       }
@@ -43,6 +49,17 @@ const Dev = () => {
       ) : 
       (
         <p>No Expert</p>
+      )}
+
+      <h2>Users lists</h2>
+      {users?.length > 0 ? 
+      (
+        <ul>
+          {users.map(user => (<li key={user._id}>{user.userName}</li>))}
+        </ul>
+      ) : 
+      (
+        <p>No Users</p>
       )}
       <Link to="/home">Home</Link>
     </section>
