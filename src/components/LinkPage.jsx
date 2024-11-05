@@ -16,6 +16,8 @@ const LinkPage = () => {
         <Link to="/expert">Expert</Link>
         <br />
         <Link to="/dev">Dev</Link>
+        <br />
+        <Link to="/diagnose">Diagnose</Link>
     </section>
   )
 }

@@ -1,6 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import useRefreshToken from "../hooks/useRefreshToken";
 import useLogout from "../hooks/useLogout";
 
 const Home = () => {
@@ -19,6 +17,8 @@ const Home = () => {
         <Link to="/expert">Expert</Link>
         <br />
         <Link to="/dev">Dev</Link>
+        <br />
+        <Link to="/diagnose">Diagnose</Link>
 
         <button onClick={signOut}>Sign Out</button>
     </section>

@@ -6,6 +6,7 @@ import RequireAuth from "./components/RequireAuth";
 import Home from "./components/Home";
 import Expert from "./components/Expert";
 import Dev from "./components/Dev";
+import Diagnose from "./components/Diagnose";
 import PersistLogin from "./components/PersistLogin";
 import Unauthorized from "./components/Unauthorized";
 import { Routes, Route } from "react-router-dom";
@@ -37,6 +38,7 @@ function App() {
             <Route element={<RequireAuth allowedRoles={[ROLES.Dev]} />}>
               <Route path="dev" element={<Dev />}/>
             </Route>
+            <Route path="diagnose" element={<Diagnose />} />
           </Route>
         </Route>
         <Route path="unauthorized" element={<Unauthorized />} />
