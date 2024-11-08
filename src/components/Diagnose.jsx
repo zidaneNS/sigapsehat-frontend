@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import Popup from "./Popup";
 
 const Diagnose = () => {
     const [sympthoms, setSympthoms] = useState([]);
     const [options, setOptions] = useState([]);
     const [input, setInput] = useState('');
+    const [isOK, setIsOK] = useState();
     const [isSubmit, setIsSubmit] = useState(false);
+    const [refusedSymthoms, setRefusedSymthoms] = useState([]);
+    const [invalid, setInvalid] = useState(false);
     const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
@@ -17,8 +21,10 @@ const Diagnose = () => {
                     withCredentials: true
                 });
 
-                console.log(response.data.data);
+                console.log('get result: ',response.data.data);
+                console.log('isSubmit value: ', isSubmit);
                 setOptions(response.data.data);
+                setInput(response.data.data[Math.floor(Math.random()*response.data.data.length)]);
             } catch (err) {
                 console.error(err);
             }
@@ -28,8 +34,30 @@ const Diagnose = () => {
     }, [isSubmit])
 
     useEffect(() => {
-        console.log(sympthoms);
+        console.log('sympthoms: ', sympthoms);
     }, [sympthoms])
+
+    useEffect(() => {
+        console.log('refusedSymthoms', refusedSymthoms);
+        if (refusedSymthoms.length === options.length) setInvalid(true);
+        console.log('invalid: ',invalid);
+    }, [refusedSymthoms])
+
+    useEffect(() => {
+        console.log('value of isOK', isOK)
+        if (isOK === true) {
+            console.log(options);
+
+            setRefusedSymthoms([]);
+        } else if (isOK === false) {
+            const oldRefusedSymthoms = [...refusedSymthoms];
+            setRefusedSymthoms([...oldRefusedSymthoms, input]);
+            const index = Math.floor(Math.random() * (options.length));
+            console.log('index', index);
+            setInput(prev => options.filter(option => option !== prev && !refusedSymthoms.includes(option))[index]);
+        }
+        setIsOK();
+    }, [isOK])
 
     const addSympthom = (sympthom) => {
         const sympthomsArray = sympthoms;
@@ -43,27 +71,14 @@ const Diagnose = () => {
         <h1>Diagnose</h1>
         {options?.name ? (
             <h1>Success</h1>
+        ) : invalid === true ? (
+            <p className="error">Error input</p>
         ) : (
-            <>
-                <label htmlFor="input">Input</label>
-                <input 
-                    type="text" 
-                    value={input}
-                    readOnly
-                    placeholder="Choose sympthom options below"
-                />
-        
-                <button onClick={() => addSympthom(input)}>Submit</button>
-            
-                {options.map((option, i) => (
-                    <div key={i}>
-                        <br/>
-                        <button onClick={() => setInput(option)} >
-                            {option}
-                        </button>
-                    </div>
-                ))}
-            </>
+            <Popup 
+                input={input}
+                setIsOK={setIsOK}
+                addSympthom={addSympthom}
+            />
         )}
         <Link to="/home">Home</Link>
     </section>
