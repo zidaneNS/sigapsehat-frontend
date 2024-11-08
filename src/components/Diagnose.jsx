@@ -10,7 +10,7 @@ const Diagnose = () => {
     const [isOK, setIsOK] = useState();
     const [isSubmit, setIsSubmit] = useState(false);
     const [refusedSymthoms, setRefusedSymthoms] = useState([]);
-    const [invalid, setInvalid] = useState(false);
+    const [isInvalid, setIsInvalid] = useState(false);
     const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
@@ -38,23 +38,19 @@ const Diagnose = () => {
     }, [sympthoms])
 
     useEffect(() => {
-        console.log('refusedSymthoms', refusedSymthoms);
-        if (refusedSymthoms.length === options.length) setInvalid(true);
-        console.log('invalid: ',invalid);
-    }, [refusedSymthoms])
-
-    useEffect(() => {
         console.log('value of isOK', isOK)
         if (isOK === true) {
             console.log(options);
 
             setRefusedSymthoms([]);
+            setIsInvalid(false);
         } else if (isOK === false) {
             const oldRefusedSymthoms = [...refusedSymthoms];
             setRefusedSymthoms([...oldRefusedSymthoms, input]);
-            const index = Math.floor(Math.random() * (options.length));
-            console.log('index', index);
-            setInput(prev => options.filter(option => option !== prev && !refusedSymthoms.includes(option))[index]);
+            const availableOptions = options.filter(option => option !== input && !refusedSymthoms.includes(option));
+
+            availableOptions.length === 0 ? setIsInvalid(true) : setInput(availableOptions[Math.floor(Math.random() * availableOptions.length)]);
+            
         }
         setIsOK();
     }, [isOK])
@@ -71,7 +67,7 @@ const Diagnose = () => {
         <h1>Diagnose</h1>
         {options?.name ? (
             <h1>Success</h1>
-        ) : invalid === true ? (
+        ) : (isInvalid === true ? (
             <p className="error">Error input</p>
         ) : (
             <Popup 
@@ -79,7 +75,7 @@ const Diagnose = () => {
                 setIsOK={setIsOK}
                 addSympthom={addSympthom}
             />
-        )}
+        ))}
         <Link to="/home">Home</Link>
     </section>
   )
