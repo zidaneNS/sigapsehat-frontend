@@ -20,11 +20,16 @@ const Diagnose = () => {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 });
+                if (sympthoms.includes('invalid')) {
+                    const filteredSympthoms = sympthoms.filter(sympthom => sympthom !== 'invalid');
+                    setSympthoms([...filteredSympthoms]);
+                }
 
                 console.log('get result: ',response.data.data);
                 console.log('isSubmit value: ', isSubmit);
                 setOptions(response.data.data);
                 setInput(response.data.data[Math.floor(Math.random()*response.data.data.length)]);
+                console.log('input', sympthoms);
             } catch (err) {
                 console.error(err);
             }
@@ -34,8 +39,13 @@ const Diagnose = () => {
     }, [isSubmit])
 
     useEffect(() => {
-        console.log('sympthoms: ', sympthoms);
-    }, [sympthoms])
+        if (isInvalid) {
+            const sympthomsArray = sympthoms;
+            setSympthoms([...sympthomsArray, 'invalid']);;
+            setIsSubmit(prev => !prev);
+            setIsInvalid(false);
+        }
+    }, [isInvalid])
 
     useEffect(() => {
         console.log('value of isOK', isOK)
@@ -66,7 +76,18 @@ const Diagnose = () => {
     <section>
         <h1>Diagnose</h1>
         {options?.name ? (
-            <h1>Success</h1>
+            <>
+                <h1>Diagnose Result:</h1>
+                <h2>{options.name}</h2>
+                <p>Sympthoms: </p>
+                <ul>
+                    {options.sympthoms.map((sympthom, i) => (<li key={i}>{sympthom}</li>))}
+                </ul>
+                <p>Treatment u should do: </p>
+                <ul>
+                    {options.treatment.map((treat, i) => (<li key={i}>{treat}</li>))}
+                </ul>
+            </>
         ) : (isInvalid === true ? (
             <p className="error">Error input</p>
         ) : (
