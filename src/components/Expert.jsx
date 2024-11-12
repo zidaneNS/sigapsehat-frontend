@@ -1,33 +1,7 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
-const Expert = () => {
-  const axiosPrivate = useAxiosPrivate();
-  const [diseases, setDiseases] = useState([]);
+const Expert = ({diseases}) => {
 
-  useEffect(() => {
-    const getDiseases = async () => {
-      try {
-        const response = await axiosPrivate.get('/disease', {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true
-        });
-
-        console.log('result : ',response.data);
-        setDiseases(response.data.data);
-        
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    getDiseases();
-  }, [])
-
-  useEffect(() => {
-    console.log(diseases);
-  }, [diseases])
   return (
     <section>
       <h1>Expert</h1>
@@ -40,7 +14,12 @@ const Expert = () => {
             <>
               <li key={i}>
                 <h2>{disease.name}</h2>
-                <p>{disease.description}</p>
+                {disease.description.length <= 100 ? (
+                  <p>{disease.description}</p>
+                ) : (
+                  <p>{disease.description.slice(0,100)}...</p>
+                )}
+                <Link to={`/${disease._id}`}>lihat lebih banyak</Link>
               </li>
               <hr />
             </>
