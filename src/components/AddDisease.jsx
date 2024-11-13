@@ -28,7 +28,12 @@ const AddDisease = ({ setUpdated }) => {
                         withCredentials: true
                     });
         
-                    setUpdated(prev => !prev);
+                    setName('');
+                    setDescription('');
+                    setSympthoms([]);
+                    setCautions([]);
+                    setTreatment([]);
+                    setUpdated(true);
                     console.log(response.data);
                 } catch (err) {
                     console.error(err);

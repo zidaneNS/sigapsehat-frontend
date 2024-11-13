@@ -2,9 +2,33 @@ import AddDisease from "./AddDisease";
 import { Link } from "react-router-dom";
 import React from "react";
 import { useState, useEffect } from "react";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const Expert = ({ setUpdated, diseases }) => {
+  const axiosPrivate = useAxiosPrivate();
   const [isAdd, setIsAdd] = useState(false);
+
+  const handleDelete = async (id) => {
+    if (!id) {
+      console.log('id cannot empty');
+      return
+    }
+
+    console.log(`disease with id ${id} will be deleted`);
+
+    try {
+      const response = await axiosPrivate.delete(`/disease/${id}`, {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true
+      });
+
+      setUpdated(true);
+
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return (
     <section>
@@ -28,7 +52,7 @@ const Expert = ({ setUpdated, diseases }) => {
                 )}
                 <Link to={`/${disease._id}`}>lihat lebih banyak</Link>
               </li>
-              <button>Delete</button>
+              <button onClick={() => handleDelete(`${disease._id}`)}>Delete</button>
               <hr />
             </React.Fragment>
           ))}

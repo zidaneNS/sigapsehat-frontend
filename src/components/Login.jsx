@@ -5,7 +5,7 @@ import AuthContext from "../context/AuthContext";
 
 const LOGIN_URL = '/auth'
 
-const Login = () => {
+const Login = ({ setUpdated }) => {
     const { setAuth, persist, setPersist } = useContext(AuthContext);
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
@@ -35,6 +35,7 @@ const Login = () => {
             setAuth({ user, roles, accessToken });
             setUser('');
             setPwd('');
+            setUpdated(true);
             setSuccess(true);
 
         } catch (err) {

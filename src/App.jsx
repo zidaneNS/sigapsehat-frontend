@@ -41,7 +41,10 @@ function App() {
       }
     }
 
-    getDiseases();
+    if (updated) {
+      getDiseases();
+      setUpdated(false);
+    }
   }, [updated])
 
   return (
@@ -49,7 +52,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         {/* Public routes */}
         <Route path="register" element={<Register />}/>
-        <Route path="login" element={<Login />}/>
+        <Route path="login" element={<Login setUpdated={setUpdated} />}/>
         <Route path="/" element={<LinkPage />}/>
 
         {/* Protected routes */}
