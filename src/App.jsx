@@ -23,6 +23,7 @@ const ROLES = {
 function App() {
   const axiosPrivate = useAxiosPrivate();
   const [diseases, setDiseases] = useState([]);
+  const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
     const getDiseases = async () => {
@@ -41,7 +42,7 @@ function App() {
     }
 
     getDiseases();
-  }, [])
+  }, [updated])
 
   return (
     <Routes>
@@ -58,6 +59,7 @@ function App() {
             <Route element={<RequireAuth allowedRoles={[ROLES.Expert, ROLES.Dev]} />}>
               <Route path="expert" element={<Expert
                 diseases={diseases}
+                setUpdated={setUpdated}
               />}/>
               <Route path=":id" element={<Disease
                 diseases={diseases}

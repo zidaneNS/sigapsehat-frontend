@@ -1,7 +1,9 @@
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useState, useEffect } from "react";
+import InputText from "./AddDiseaseComp/InputText";
+import InputArray from "./AddDiseaseComp/InputArray";
 
-const AddDisease = () => {
+const AddDisease = ({ setUpdated }) => {
     const axiosPrivate = useAxiosPrivate();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -11,7 +13,6 @@ const AddDisease = () => {
     const [cautions, setCautions] = useState([]);
     const [sympthoms, setSympthoms] = useState([]);
     const [treatment, setTreatment] = useState([]);
-    const [isSubmit, setIsSubmit] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,64 +22,92 @@ const AddDisease = () => {
                 sympthoms.length > 0 &&
                 treatment.length > 0
             ) {
-                // try {
-                //     const response = await axiosPrivate.post('disease', JSON.stringify({ name, description, cautions, sympthoms, treatment }), {
-                //         headers: { 'Content-Type': 'application/json' },
-                //         withCredentials: true
-                //     });
+                try {
+                    const response = await axiosPrivate.post('disease', JSON.stringify({ name, cautions, description, sympthoms, treatment }), {
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true
+                    });
         
-                //     console.log(response.data);
-                // } catch (err) {
-                //     console.error(err);
-                // }
-                console.log('ok');
+                    setUpdated(prev => !prev);
+                    console.log(response.data);
+                } catch (err) {
+                    console.error(err);
+                }
+                console.log('result', { name, description, cautions, sympthoms, treatment });
+            } else {
+                console.log('input field cannot empty');
             }
-            console.log('input field cannot empty');
     }
 
-    const handleCaution = (e) => {
-        if (caution !== '') {
-            const oldCautions = cautions;
-            setCautions([...oldCautions, caution]);
-            setCaution('');
+    const handleInput = (inputs, input, setInputs, setInput) => {
+        if (input !== '') {
+            const oldInputs = inputs;
+            setInputs([...oldInputs, input]);
+            setInput('');
         } else {
             console.log('caution cannot empty');
         }
     }
+
+    const handleInputDelete = (inputs, setInputs, element) => {
+        const newInputs = inputs.filter(input => input !== element);
+        setInputs(newInputs);
+    }
     
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-        <h1>Input new disease</h1>
-        <label htmlFor="name">Name:</label>
-        <input 
-            type="text"
-            id="name"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-            placeholder="Input name of disease"
+        <h1>Penyakit baru</h1>
+        <InputText 
+            name="Nama"
+            label="name"
+            setInput={setName}
+            input={name}
+            ph="Masukkan nama penyakit"
         />
 
-        <label htmlFor="description">Description:</label>
-        <input 
-            type="text" 
-            id="description"
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-            placeholder="Input description"
+        <InputText 
+            name="Deskripsi"
+            label="description"
+            setInput={setDescription}
+            input={description}
+            ph="Masukkan deskripsi"
         />
 
-        <label htmlFor="cautions">Cautions:</label>
-        <input 
-            type="text"
-            id="cautions"
-            onChange={(e) => setCaution(e.target.value)}
-            value={caution}
-            placeholder="Input cautions"
+        <InputArray 
+            label="cautions"
+            name="Penyebab"
+            setInput={setCaution}
+            input={caution}
+            ph="Masukkan penyebab"
+            handleInput={handleInput}
+            handleInputDelete={handleInputDelete}
+            inputs={cautions}
+            setInputs={setCautions}
         />
-        <button onClick={(e) => handleCaution(e)}>Add caution</button>
-        {cautions.length > 0 && (<ul>
-            {cautions.map((element, i) => (<li key={i}>{element}</li>))}
-        </ul>)}
+
+        <InputArray 
+            label="sympthom"
+            name="Gejala"
+            setInput={setSympthom}
+            input={sympthom}
+            ph="Masukkan gejala"
+            handleInput={handleInput}
+            handleInputDelete={handleInputDelete}
+            inputs={sympthoms}
+            setInputs={setSympthoms}
+        />
+
+        <InputArray 
+            label="treatment"
+            name="Penanganan"
+            setInput={setTreat}
+            input={treat}
+            ph="Masukkan penanganan"
+            handleInput={handleInput}
+            handleInputDelete={handleInputDelete}
+            inputs={treatment}
+            setInputs={setTreatment}
+        />
 
         <button type="submit">Submit</button>
     </form>

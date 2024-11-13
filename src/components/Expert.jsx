@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useState, useEffect } from "react";
 
-const Expert = ({diseases}) => {
+const Expert = ({ setUpdated, diseases }) => {
   const [isAdd, setIsAdd] = useState(false);
 
   return (
     <section>
       <h1>Expert</h1>
-      {isAdd && (<AddDisease />)}
+      {isAdd && (<AddDisease setUpdated={setUpdated} />)}
       <button onClick={(e) => setIsAdd(prev => !prev)}>
         {isAdd ? "Close" : "Add disease"}
       </button>
