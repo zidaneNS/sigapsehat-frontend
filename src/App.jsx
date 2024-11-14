@@ -66,6 +66,7 @@ function App() {
               />}/>
               <Route path=":id" element={<Disease
                 diseases={diseases}
+                setUpdated={setUpdated}
               />} />
             </Route>
 

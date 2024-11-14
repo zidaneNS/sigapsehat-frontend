@@ -8,6 +8,13 @@ const Expert = ({ setUpdated, diseases }) => {
   const axiosPrivate = useAxiosPrivate();
   const [isAdd, setIsAdd] = useState(false);
 
+  const methodReq = async (name, cautions, description, sympthoms, treatment) => {
+    return axiosPrivate.post('disease', JSON.stringify({ name, cautions, description, sympthoms, treatment }), {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true
+    });
+  }
+
   const handleDelete = async (id) => {
     if (!id) {
       console.log('id cannot empty');
@@ -33,7 +40,12 @@ const Expert = ({ setUpdated, diseases }) => {
   return (
     <section>
       <h1>Expert</h1>
-      {isAdd && (<AddDisease setUpdated={setUpdated} />)}
+      {isAdd && 
+        (<AddDisease 
+          setUpdated={setUpdated} 
+          methodReq={methodReq}
+        />)
+      }
       <button onClick={(e) => setIsAdd(prev => !prev)}>
         {isAdd ? "Close" : "Add disease"}
       </button>

@@ -1,18 +1,16 @@
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useState, useEffect } from "react";
 import InputText from "./AddDiseaseComp/InputText";
 import InputArray from "./AddDiseaseComp/InputArray";
 
-const AddDisease = ({ setUpdated }) => {
-    const axiosPrivate = useAxiosPrivate();
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautions, initialSympthoms, initialTreatment, methodReq }) => {
+    const [name, setName] = useState(initialName || '');
+    const [description, setDescription] = useState(initialDescription || '');
     const [caution, setCaution] = useState('');
     const [sympthom, setSympthom] = useState('');
     const [treat, setTreat] = useState('');
-    const [cautions, setCautions] = useState([]);
-    const [sympthoms, setSympthoms] = useState([]);
-    const [treatment, setTreatment] = useState([]);
+    const [cautions, setCautions] = useState(initialCautions || []);
+    const [sympthoms, setSympthoms] = useState(initialSympthoms || []);
+    const [treatment, setTreatment] = useState(initialTreatment || []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,10 +21,7 @@ const AddDisease = ({ setUpdated }) => {
                 treatment.length > 0
             ) {
                 try {
-                    const response = await axiosPrivate.post('disease', JSON.stringify({ name, cautions, description, sympthoms, treatment }), {
-                        headers: { 'Content-Type': 'application/json' },
-                        withCredentials: true
-                    });
+                    const response = await methodReq(name, cautions, description, sympthoms, treatment);
         
                     setName('');
                     setDescription('');
