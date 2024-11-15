@@ -54,7 +54,7 @@ function App() {
         {/* Public routes */}
         <Route path="register" element={<Register />}/>
         <Route path="login" element={<Login setUpdated={setUpdated} />}/>
-        <Route path="landing page" element={<LandingPage />}/>
+        <Route path="landing_page" element={<LandingPage />}/>
         <Route path="/" element={<LinkPage />}/>
 
         {/* Protected routes */}

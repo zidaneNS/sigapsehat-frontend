@@ -13,7 +13,7 @@ const LinkPage = () => {
         <br />
         <Link to="/register">Register</Link>
         <br />
-        <Link to="/landingpage">Landing Page</Link>
+        <Link to="/landing_page">Landing Page</Link>
 
         {/* Protected links */}
         <h2 className='font-semibold mt-5'>Protected</h2>

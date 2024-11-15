@@ -20,7 +20,7 @@ const Home = () => {
         <br />
         <Link to="/diagnose">Diagnose</Link>
         <br />
-        <Link to='/landingpage'>Landing Page</Link>
+        <Link to='/landing_page'>Landing Page</Link>
         <br />
         <button onClick={signOut}>Sign Out</button>
     </section>
