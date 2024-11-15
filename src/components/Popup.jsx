@@ -5,7 +5,7 @@ const Popup = ({ input, setIsOK, addSympthom }) => {
   return (
       <div className="cookie-card">
         <span className="title">Click Yes or No</span>
-        <p className="description">Do you have {input}</p>
+        <p className="description">Apakah anda mengalami {input}</p>
         <div className="actions">
           <button 
             className="accept"

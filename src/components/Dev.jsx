@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 const Dev = () => {
   const [experts, setExperts] = useState();
   const [users, setUsers] = useState();
+  const [updated, setUpdated] = useState(false);
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
@@ -29,13 +30,22 @@ const Dev = () => {
       }
     }
 
-    getExpert();
+    if (updated) {
+      getExpert();
+      setUpdated(false);
+    }
 
     return () => {
       isMounted = false;
       controller.abort();
     }
   }, [])
+
+  const handleDelete = (id, isUser = false) => {
+    if (isUser) {
+      const newUsers = users.filter(user => user._id !== id);
+    }
+  }
   
   return (
     <section>
