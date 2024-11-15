@@ -61,7 +61,7 @@ const Login = ({ setUpdated }) => {
     return (
         <>
             {success ? 
-            <section className="flex flex-col items-center justify-center min-h-screen bg-blue-50">
+            <section className="flex flex-col items-center justify-center">
                 <h1 className="text-3xl font-bold text-blue-700 mb-4">Success!</h1>
                 <Link to="/home" className="text-blue-600 hover:underline">Go to Home</Link>
             </section> 
