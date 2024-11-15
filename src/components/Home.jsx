@@ -11,7 +11,7 @@ const Home = () => {
   }
   return (
     <section>
-      <h2>Protected</h2>
+      <h2 className="font-semibold mb-5">Protected</h2>
         <Link to="/home">Home</Link>
         <br />
         <Link to="/expert">Expert</Link>
@@ -19,7 +19,7 @@ const Home = () => {
         <Link to="/dev">Dev</Link>
         <br />
         <Link to="/diagnose">Diagnose</Link>
-
+        <br />
         <button onClick={signOut}>Sign Out</button>
     </section>
   )

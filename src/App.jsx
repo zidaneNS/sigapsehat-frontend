@@ -13,6 +13,7 @@ import Unauthorized from "./components/Unauthorized";
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
+import LandingPage from "./components/LandingPage";
 
 const ROLES = {
   User: 2001,
@@ -53,6 +54,7 @@ function App() {
         {/* Public routes */}
         <Route path="register" element={<Register />}/>
         <Route path="login" element={<Login setUpdated={setUpdated} />}/>
+        <Route path="landing page" element={<LandingPage />}/>
         <Route path="/" element={<LinkPage />}/>
 
         {/* Protected routes */}
