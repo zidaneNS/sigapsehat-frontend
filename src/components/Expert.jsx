@@ -1,7 +1,6 @@
-import AddDisease from "./AddDisease";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import React from "react";
-import { useState } from "react";
+import AddDisease from "./AddDisease";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const Expert = ({ setUpdated, diseases }) => {
@@ -25,8 +24,6 @@ const Expert = ({ setUpdated, diseases }) => {
       return;
     }
 
-    console.log(`Disease with id ${id} will be deleted`);
-
     try {
       const response = await axiosPrivate.delete(`/disease/${id}`, {
         headers: { 'Content-Type': 'application/json' },
@@ -44,18 +41,27 @@ const Expert = ({ setUpdated, diseases }) => {
     <section className="p-6 bg-gray-50 min-h-screen">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Expert Dashboard</h1>
 
-      {isAdd && (
-        <div className="mb-4">
-          <AddDisease setUpdated={setUpdated} methodReq={methodReq} />
-        </div>
-      )}
-
       <button
-        onClick={() => setIsAdd((prev) => !prev)}
+        onClick={() => setIsAdd(true)}
         className="px-4 py-2 bg-blue-600 text-white font-semibold rounded shadow-md hover:bg-blue-700 focus:ring focus:ring-blue-300 transition mb-6"
       >
-        {isAdd ? 'Close' : 'Add Disease'}
+        Add Disease
       </button>
+
+      {isAdd && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-1/2">
+            <h2 className="text-xl font-bold mb-4">Add New Disease</h2>
+            <AddDisease setUpdated={setUpdated} methodReq={methodReq} />
+            <button
+              onClick={() => setIsAdd(false)}
+              className="mt-4 px-4 py-2 bg-red-600 text-white font-semibold rounded shadow-md hover:bg-red-700 focus:ring focus:ring-red-300 transition"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       {diseases.length < 1 ? (
         <p className="text-gray-500">Loading...</p>
