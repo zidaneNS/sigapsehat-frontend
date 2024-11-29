@@ -10,7 +10,7 @@ const Home = () => {
     navigate('/');
   }
   return (
-    <section>
+    <section className="flex-grow grid place-content-center" >
       <h2 className="font-semibold mb-5">Protected</h2>
         <Link to="/home">Home</Link>
         <br />

@@ -38,18 +38,18 @@ const Expert = ({ setUpdated, diseases }) => {
   };
 
   return (
-    <section className="p-6 bg-gray-50 min-h-screen">
+    <section className="p-6 bg-gray-50 min-h-screen flex flex-col relative">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Expert Dashboard</h1>
 
       <button
         onClick={() => setIsAdd(true)}
-        className="px-4 py-2 bg-blue-600 text-white font-semibold rounded shadow-md hover:bg-blue-700 focus:ring focus:ring-blue-300 transition mb-6"
+        className="px-4 py-2 bg-blue-600 text-white font-semibold rounded shadow-md hover:bg-blue-700 focus:ring focus:ring-blue-300 transition mb-6 w-fit"
       >
         Add Disease
       </button>
 
       {isAdd && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 flex-grow">
           <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-1/2">
             <h2 className="text-xl font-bold mb-4">Add New Disease</h2>
             <AddDisease setUpdated={setUpdated} methodReq={methodReq} />
@@ -99,7 +99,7 @@ const Expert = ({ setUpdated, diseases }) => {
 
       <Link
         to="/home"
-        className="inline-block mt-8 px-4 py-2 bg-gray-700 text-white font-semibold rounded shadow-md hover:bg-gray-800 focus:ring focus:ring-gray-500 transition"
+        className="inline-block mt-8 px-4 py-2 bg-gray-700 text-white font-semibold rounded shadow-md hover:bg-gray-800 focus:ring focus:ring-gray-500 transition w-fit"
       >
         Home
       </Link>

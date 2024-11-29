@@ -17,7 +17,7 @@ const InputText = ({ name, label, setInput, input, ph }) => {
         value={input}
         placeholder={ph}
         autoComplete="off"
-        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200 transition"
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200 transitionzzz"
       />
     </div>
   );
