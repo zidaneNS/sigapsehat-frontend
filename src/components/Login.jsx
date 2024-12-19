@@ -2,7 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "../api/axios";
 import AuthContext from "../context/AuthContext";
-import Zidane from '../components/Asset/zidane.jpg';
+import Zidane from '../components/Asset/login.jpg';
+
 
 const LOGIN_URL = '/auth';
 

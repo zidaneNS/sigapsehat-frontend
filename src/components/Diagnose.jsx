@@ -74,42 +74,40 @@ const Diagnose = () => {
     }
   return (
     <section 
-    className="flex flex-col items-center bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto"
-    style={{ width: "600px", minHeight: "500px" }} // Tetapkan lebar dan tinggi minimum
+      className="flex flex-col items-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 p-8 rounded-lg shadow-lg max-w-2xl mx-auto mt-10"
+      style={{ width: "600px", minHeight: "500px" }}
     >
-    <h1 className="text-2xl font-bold mb-4">Diagnose</h1>
-    {options?.name ? (
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Diagnose</h1>
+      {options?.name ? (
         <>
-            <h1 className="text-xl font-bold mb-10">Diagnose Result:</h1>
-            <h2 className="text-lg font-medium mb-2">{options.name}</h2>
-            <p className="font-semibold">Symptoms: </p>
-            <ul className="list-disc list-inside mb-4">
-                {options.sympthoms.map((sympthom, i) => (<li key={i}>{sympthom}</li>))}
-            </ul>
-            <p className="font-semibold">Treatment you should do: </p>
-            <ul className="list-disc list-inside">
-                {options.treatment.map((treat, i) => (<li key={i}>{treat}</li>))}
-            </ul>
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Diagnose Result:</h2>
+          <h3 className="text-xl font-medium text-blue-600 mb-2">{options.name}</h3>
+          <p className="font-semibold text-gray-800 mb-2">Symptoms:</p>
+          <ul className="list-disc list-inside mb-4 text-gray-700">
+            {options.sympthoms.map((sympthom, i) => (<li key={i}>{sympthom}</li>))}
+          </ul>
+          <p className="font-semibold text-gray-800 mb-2">Treatment you should do:</p>
+          <ul className="list-disc list-inside text-gray-700">
+            {options.treatment.map((treat, i) => (<li key={i}>{treat}</li>))}
+          </ul>
         </>
-    ) : (isInvalid === true ? (
-        <p className="error">Error input</p>
-    ) : (
+      ) : (isInvalid ? (
+        <p className="text-red-500 text-lg font-semibold">Invalid input, please try again!</p>
+      ) : (
         <Popup 
-            input={input}
-            setIsOK={setIsOK}
-            addSympthom={addSympthom}
+          input={input}
+          setIsOK={setIsOK}
+          addSympthom={addSympthom}
         />
-    ))}
-    <Link 
+      ))}
+      <Link 
         to="/home"
-        className="mt-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md"
-    >
-        Home
-    
-    </Link>
+        className="mt-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300"
+      >
+        Back to Home
+      </Link>
     </section>
-
   )
 }
 
-export default Diagnose
+export default Diagnose;
