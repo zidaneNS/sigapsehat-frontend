@@ -1,6 +1,7 @@
 import { useState } from "react";
 import InputText from "./AddDiseaseComp/InputText";
 import InputArray from "./AddDiseaseComp/InputArray";
+import Loading from "./Loading";
 
 const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautions, initialSympthoms, initialTreatment, methodReq }) => {
   const [name, setName] = useState(initialName || '');
@@ -11,9 +12,11 @@ const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautio
   const [cautions, setCautions] = useState(initialCautions || []);
   const [sympthoms, setSympthoms] = useState(initialSympthoms || []);
   const [treatment, setTreatment] = useState(initialTreatment || []);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     if (
       name !== '' &&
       description !== '' &&
@@ -33,10 +36,13 @@ const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautio
         console.log(response.data);
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
       console.log('result', { name, description, cautions, sympthoms, treatment });
     } else {
       console.log('input field cannot be empty');
+      setIsLoading(false);
     }
   };
 
@@ -111,12 +117,16 @@ const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautio
         setInputs={setTreatment}
       />
 
-      <button
-        type="submit"
-        className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded shadow-md hover:bg-blue-700 focus:ring focus:ring-blue-300 transition"
-      >
-        Submit
-      </button>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <button
+          type="submit"
+          className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded shadow-md hover:bg-blue-700 focus:ring focus:ring-blue-300 transition"
+        >
+          Submit
+        </button>
+      )}
     </form>
   );
 };

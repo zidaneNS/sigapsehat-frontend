@@ -25,16 +25,16 @@ const Dashboard = ({ setUpdated, diseases }) => {
       <Sidebar onSignOut={signOut}/>
       
       {/* Main Content */}
-      {auth?.roles.includes(2002) ? (
-        <Expert 
-          setUpdated={setUpdated}
-          diseases={diseases}
-        />
-      ) : (
         <main className="flex-auto bg-gray-100 overflow-auto p-6 ml-64">
           <header className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-800">Welcome, User!</h1>
+            <h1 className="text-3xl font-bold text-gray-800">Welcome, {auth?.user}</h1>
           </header>
+          {auth?.roles.includes(2002) ? (
+            <Expert 
+              setUpdated={setUpdated}
+              diseases={diseases}
+            />
+          ) : (
           <section className="bg-white h-full p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Dashboard Overview</h2>
             <Profile></Profile>
@@ -52,9 +52,9 @@ const Dashboard = ({ setUpdated, diseases }) => {
               </Link>
             </div>
           </section>
+          )}
           
         </main>
-      )}
     </div>
   );
 };

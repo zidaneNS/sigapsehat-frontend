@@ -1,6 +1,7 @@
-import React from "react";
+import useAuth from "../hooks/useAuth";
 
 const Profile = () => {
+  const { auth } = useAuth();
   return (
     <div className="">
       <div className="bg-white p-6 rounded-lg shadow-md max-w-4xl mx-auto">
@@ -13,12 +14,12 @@ const Profile = () => {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-gray-800 font-medium">Username:</span>
-            <span className="text-gray-600">zidan gembol</span>
+            <span className="text-gray-600">{auth?.user}</span>
           </div>
 
           <div className="flex items-center justify-between">
             <span className="text-gray-800 font-medium">Email :</span>
-            <span className="text-gray-600">zidan gembol</span>
+            <span className="text-gray-600">zidan@gmail.com</span>
           </div>
         </div>
 

@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AddDisease from "./AddDisease";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import Loading from "./Loading";
 
 const Expert = ({ setUpdated, diseases }) => {
   const axiosPrivate = useAxiosPrivate();
   const [isAdd, setIsAdd] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const methodReq = async (name, cautions, description, sympthoms, treatment) => {
     return axiosPrivate.post(
@@ -19,8 +21,10 @@ const Expert = ({ setUpdated, diseases }) => {
   };
 
   const handleDelete = async (id) => {
+    setIsLoading(true);
     if (!id) {
       console.log('id cannot be empty');
+      setIsLoading(false);
       return;
     }
 
@@ -34,6 +38,8 @@ const Expert = ({ setUpdated, diseases }) => {
       console.log(response.data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -81,14 +87,18 @@ const Expert = ({ setUpdated, diseases }) => {
                     to={`/${disease._id}`}
                     className="text-blue-600 hover:underline inline-block mr-4"
                   >
-                    Lebih Lengkap
+                    Lebih Lengkaps
                   </Link>
-                  <button
-                    onClick={() => handleDelete(`${disease._id}`)}
-                    className="px-3 py-1 bg-red-600 text-white font-semibold rounded shadow-md hover:bg-red-700 focus:ring focus:ring-red-300 transition"
-                  >
-                    Delete
-                  </button>
+                  {isLoading ? (
+                    <Loading />
+                  ) : (
+                    <button
+                      onClick={() => handleDelete(`${disease._id}`)}
+                      className="px-3 py-1 bg-red-600 text-white font-semibold rounded shadow-md hover:bg-red-700 focus:ring focus:ring-red-300 transition"
+                    >
+                      Delete
+                    </button>
+                  ) }
                 </div>
               </li>
               <hr className="border-gray-200 my-4" />

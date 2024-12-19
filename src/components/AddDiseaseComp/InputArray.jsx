@@ -49,6 +49,7 @@ const InputArray = ({
             >
               <span className="text-gray-700">{element}</span>
               <button
+                type="button"
                 onClick={() => handleInputDelete(inputs, setInputs, element)}
                 className="px-2 py-1 bg-red-500 text-white font-semibold rounded hover:bg-red-600"
               >
