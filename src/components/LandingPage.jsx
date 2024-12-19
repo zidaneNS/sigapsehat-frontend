@@ -5,8 +5,10 @@ import Hero from "./LandingPageComp/Hero";
 const LandingPage = () => {
   return (
     <>
+    <div className="">
       <Navbar />
       <Hero />
+    </div>
     </>
   )
 }

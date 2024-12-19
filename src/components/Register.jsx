@@ -31,8 +31,6 @@ const Register = () => {
                 withCredentials: true
             });
 
-            console.log(response?.data);
-            console.log(response?.data?.data?.refreshToken);
             setSuccess(true);
             setUser('');
             setPwd('');
@@ -57,7 +55,7 @@ const Register = () => {
             </section>) 
             : 
             (<section className="flex flex-col items-center justify-center">
-                <div className="flex flex-col md:flex-row w-full max-w-6xl bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="flex flex-col md:flex-row w-full max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden">
                     
                     {/* Form Section */}
                     <div className="w-full md:w-1/2 p-8">
@@ -111,7 +109,7 @@ const Register = () => {
                                 Sign Up
                             </button>     
 
-                            <div className="text-center mt-[100px]">
+                            <div className="text-center mt-6">
                                 <p className="text-sm text-gray-600">Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Sign in</Link></p>
                             </div>
                         </form>
@@ -125,6 +123,11 @@ const Register = () => {
                             className="object-cover w-full h-full"
                         />
                     </div>
+                </div>
+
+                {/* Footer Section */}
+                <div className="absolute bottom-4 text-center w-full">
+                    <p className="text-sm text-gray-500">&copy; 2024 SigapSehat. All rights reserved.</p>
                 </div>
             </section>)}
         </>

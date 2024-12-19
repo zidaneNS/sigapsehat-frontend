@@ -73,32 +73,42 @@ const Diagnose = () => {
         setIsSubmit(prev => !prev);
     }
   return (
-    <section>
-        <h1>Diagnose</h1>
-        {options?.name ? (
-            <>
-                <h1>Diagnose Result:</h1>
-                <h2>{options.name}</h2>
-                <p>Sympthoms: </p>
-                <ul>
-                    {options.sympthoms.map((sympthom, i) => (<li key={i}>{sympthom}</li>))}
-                </ul>
-                <p>Treatment u should do: </p>
-                <ul>
-                    {options.treatment.map((treat, i) => (<li key={i}>{treat}</li>))}
-                </ul>
-            </>
-        ) : (isInvalid === true ? (
-            <p className="error">Error input</p>
-        ) : (
-            <Popup 
-                input={input}
-                setIsOK={setIsOK}
-                addSympthom={addSympthom}
-            />
-        ))}
-        <Link to="/home">Home</Link>
+    <section 
+    className="flex flex-col items-center bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto"
+    style={{ width: "600px", minHeight: "500px" }} // Tetapkan lebar dan tinggi minimum
+    >
+    <h1 className="text-2xl font-bold mb-4">Diagnose</h1>
+    {options?.name ? (
+        <>
+            <h1 className="text-xl font-bold mb-10">Diagnose Result:</h1>
+            <h2 className="text-lg font-medium mb-2">{options.name}</h2>
+            <p className="font-semibold">Symptoms: </p>
+            <ul className="list-disc list-inside mb-4">
+                {options.sympthoms.map((sympthom, i) => (<li key={i}>{sympthom}</li>))}
+            </ul>
+            <p className="font-semibold">Treatment you should do: </p>
+            <ul className="list-disc list-inside">
+                {options.treatment.map((treat, i) => (<li key={i}>{treat}</li>))}
+            </ul>
+        </>
+    ) : (isInvalid === true ? (
+        <p className="error">Error input</p>
+    ) : (
+        <Popup 
+            input={input}
+            setIsOK={setIsOK}
+            addSympthom={addSympthom}
+        />
+    ))}
+    <Link 
+        to="/home"
+        className="mt-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md"
+    >
+        Home
+    
+    </Link>
     </section>
+
   )
 }
 

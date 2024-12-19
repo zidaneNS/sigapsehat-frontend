@@ -4,7 +4,7 @@ import axios from "../api/axios";
 import AuthContext from "../context/AuthContext";
 import Zidane from '../components/Asset/zidane.jpg';
 
-const LOGIN_URL = '/auth'
+const LOGIN_URL = '/auth';
 
 const Login = ({ setUpdated }) => {
     const { setAuth, persist, setPersist } = useContext(AuthContext);
@@ -15,7 +15,7 @@ const Login = ({ setUpdated }) => {
 
     useEffect(() => {
         setErrMsg('');
-    }, [pwd, user])
+    }, [pwd, user]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,15 +48,15 @@ const Login = ({ setUpdated }) => {
                 setErrMsg('Login failed');
             }
         }
-    }
+    };
 
     const togglePersist = () => {
         setPersist(prev => !prev);
-    }
+    };
 
     useEffect(() => {
         localStorage.setItem("persist", persist);
-    }, [persist])
+    }, [persist]);
 
     return (
         <>
@@ -66,7 +66,8 @@ const Login = ({ setUpdated }) => {
                 <Link to="/home" className="text-blue-600 hover:underline">Go to Home</Link>
             </section> 
             : 
-            <section className="flex items-center justify-center">
+            <section className="relative flex items-center justify-center min-h-screen">
+                {/* Main Login Section */}
                 <div className="flex flex-col md:flex-row items-center w-full max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden">
                     
                     {/* Form Section */}
@@ -132,6 +133,11 @@ const Login = ({ setUpdated }) => {
                             alt="Login Visual" 
                             className="w-full h-full object-cover"/>
                     </div>
+                </div>
+
+                {/* Footer Section */}
+                <div className="absolute bottom-4 text-center w-full">
+                    <p className="text-sm text-gray-500">&copy; 2024 SigapSehat. All rights reserved.</p>
                 </div>
             </section>}
         </>

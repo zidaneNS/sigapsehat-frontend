@@ -4,7 +4,7 @@ import Navbar from "./LandingPageComp/Navbar"
 const Layout = () => {
   return (
     <main className="App h-screen flex justify-center items-center">
-      <Navbar />
+      {/* <Navbar /> */}
       <Outlet />
     </main>
   )
