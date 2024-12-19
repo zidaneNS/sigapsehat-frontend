@@ -3,7 +3,7 @@ This is me and my friend final project for AI Course at Mathematics Bachelor Deg
 This app build by MERN stack
 
 ## Progress
-- [x] Complete Back-end server you can check it at (https://github.com/zidaneNS/kcb-expert-system)
+- [x] Complete Back-end server you can check it at (https://github.com/zidaneNS/sigapsehat-backend)
 - [x] Integration between back-end server with front-end app
 - [ ] Complete front-end app
 
