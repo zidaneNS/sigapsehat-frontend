@@ -1,4 +1,4 @@
-import React from "react";
+import Loading from "./Loading";
 
 const Popup = ({ input, setIsOK, addSympthom }) => {
   return (
@@ -7,11 +7,15 @@ const Popup = ({ input, setIsOK, addSympthom }) => {
       style={{ width: "400px", height: "300px" }} // Ukuran tetap untuk kotak popup
     >
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Konfirmasi Gejala</h2>
-      <div className="flex flex-col items-center justify-center flex-grow">
-        <p className="text-xl text-blue-600 font-semibold mb-6 text-center">
-          Apakah Anda mengalami <span className="text-red-500">{input}</span>?
-        </p>
-      </div>
+      {input.length ? (
+        <div className="flex flex-col items-center justify-center flex-grow">
+          <p className="text-xl text-blue-600 font-semibold mb-6 text-center">
+            Apakah Anda mengalami <span className="text-red-500">{input}</span>?
+          </p>
+        </div>        
+      ) : (
+        <Loading />
+      )}
       <div className="flex gap-4 mt-auto">
         <button
           className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200"

@@ -60,7 +60,10 @@ function App() {
         {/* Protected routes */}
         <Route element={<PersistLogin />}>
           <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-            <Route path="home" element={<Home />}/>
+            <Route path="home" element={<Home 
+              setUpdated={setUpdated}
+              diseases={diseases}
+            />}/>
             <Route element={<RequireAuth allowedRoles={[ROLES.Expert, ROLES.Dev]} />}>
               <Route path="expert" element={<Expert
                 diseases={diseases}

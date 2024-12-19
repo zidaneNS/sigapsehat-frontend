@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 import axios from "../api/axios";
 import AuthContext from "../context/AuthContext";
 import Zidane from '../components/Asset/login.jpg';
@@ -13,6 +14,7 @@ const Login = ({ setUpdated }) => {
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setErrMsg('');
@@ -20,7 +22,7 @@ const Login = ({ setUpdated }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setIsLoading(true);
         try {
             const response = await axios.post(LOGIN_URL, JSON.stringify({ userName: user, password: pwd }), {
                 headers: { 'Content-Type': 'application/json' },
@@ -48,6 +50,8 @@ const Login = ({ setUpdated }) => {
             } else {
                 setErrMsg('Login failed');
             }
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -58,6 +62,10 @@ const Login = ({ setUpdated }) => {
     useEffect(() => {
         localStorage.setItem("persist", persist);
     }, [persist]);
+
+    useEffect(() => {
+        console.log('loading :', isLoading);
+    }, [isLoading]);
 
     return (
         <>
@@ -99,13 +107,17 @@ const Login = ({ setUpdated }) => {
 
                             <p className={`${errMsg ? "text-red-500 text-sm mt-2" : "hidden"}`}>{errMsg}</p>
                             
-                            <button 
-                                type="submit" 
-                                disabled={user === '' || pwd === ''}
-                                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-300 disabled:cursor-not-allowed mt-4"
-                            >
-                                Sign In
-                            </button>     
+                            {isLoading ? (
+                                <Loading />
+                            ) : (
+                                <button 
+                                    type="submit" 
+                                    disabled={user === '' || pwd === ''}
+                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-300 disabled:cursor-not-allowed mt-4"
+                                >
+                                    Sign In
+                                </button>     
+                            )}
 
                             <div className="flex items-center justify-between mt-4">
                                 <label htmlFor="persist" className="text-sm text-gray-600">
