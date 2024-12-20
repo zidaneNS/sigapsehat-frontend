@@ -13,6 +13,7 @@ const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautio
   const [sympthoms, setSympthoms] = useState(initialSympthoms || []);
   const [treatment, setTreatment] = useState(initialTreatment || []);
   const [isLoading, setIsLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +54,7 @@ const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautio
       setInputs([...oldInputs, input]);
       setInput('');
     } else {
-      console.log('Field cannot be empty');
+      setErrMsg('Field cannot be empty')
     }
   };
 
@@ -117,6 +118,8 @@ const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautio
         inputs={treatment}
         setInputs={setTreatment}
       />
+
+      {errMsg && <p className="text-red-500 text-sm">{errMsg}</p>}
 
       {isLoading ? (
         <Loading />
