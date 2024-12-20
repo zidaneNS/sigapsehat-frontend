@@ -3,7 +3,7 @@ import InputText from "./AddDiseaseComp/InputText";
 import InputArray from "./AddDiseaseComp/InputArray";
 import Loading from "./Loading";
 
-const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautions, initialSympthoms, initialTreatment, methodReq }) => {
+const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautions, initialSympthoms, initialTreatment, methodReq, setIsAdd }) => {
   const [name, setName] = useState(initialName || '');
   const [description, setDescription] = useState(initialDescription || '');
   const [caution, setCaution] = useState('');
@@ -33,6 +33,7 @@ const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautio
         setCautions([]);
         setTreatment([]);
         setUpdated(true);
+        setIsAdd(false);
         console.log(response.data);
       } catch (err) {
         console.error(err);

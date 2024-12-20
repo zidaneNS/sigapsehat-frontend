@@ -58,7 +58,11 @@ const Expert = ({ setUpdated, diseases }) => {
         <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 flex-grow">
           <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-1/2">
             <h2 className="text-xl font-bold mb-4">Add New Disease</h2>
-            <AddDisease setUpdated={setUpdated} methodReq={methodReq} />
+            <AddDisease 
+              setUpdated={setUpdated} 
+              methodReq={methodReq} 
+              setIsAdd={setIsAdd}
+            />
             <button
               onClick={() => setIsAdd(false)}
               className="mt-4 px-4 py-2 bg-red-600 text-white font-semibold rounded shadow-md hover:bg-red-700 focus:ring focus:ring-red-300 transition"
@@ -87,7 +91,7 @@ const Expert = ({ setUpdated, diseases }) => {
                     to={`/${disease._id}`}
                     className="text-blue-600 hover:underline inline-block mr-4"
                   >
-                    Lebih Lengkaps
+                    Lebih Lengkap
                   </Link>
                   {isLoading ? (
                     <Loading />

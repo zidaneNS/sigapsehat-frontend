@@ -7,7 +7,7 @@ const Disease = ({ diseases, setUpdated }) => {
   const { id } = useParams();
   const axiosPrivate = useAxiosPrivate();
   const disease = diseases.filter((disease) => disease._id === id)[0];
-  const [isEdit, setIsEdit] = useState(false);
+  const [isAdd, setIsAdd] = useState(false);
 
   const methodReq = async (name, cautions, description, sympthoms, treatment) => {
     return axiosPrivate.put(
@@ -26,14 +26,14 @@ const Disease = ({ diseases, setUpdated }) => {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-800">{disease.name}</h1>
           <button
-            onClick={() => setIsEdit((prev) => !prev)}
+            onClick={() => setIsAdd((prev) => !prev)}
             className="px-4 py-2 bg-blue-600 text-white font-semibold rounded shadow-md hover:bg-blue-700 focus:ring focus:ring-blue-300 transition"
           >
-            {isEdit ? "Cancel Edit" : "Edit Disease"}
+            {isAdd ? "Cancel Edit" : "Edit Disease"}
           </button>
         </div>
 
-        {!isEdit && (
+        {!isAdd && (
           <>
             <section className="mb-6">
               <h2 className="text-2xl font-semibold text-gray-700 mb-2">Deskripsi</h2>
@@ -69,7 +69,7 @@ const Disease = ({ diseases, setUpdated }) => {
           </>
         )}
 
-        {isEdit && (
+        {isAdd && (
           <div className="mb-6">
             <AddDisease
               setUpdated={setUpdated}
@@ -79,6 +79,7 @@ const Disease = ({ diseases, setUpdated }) => {
               initialSympthoms={disease.sympthoms}
               initialTreatment={disease.treatment}
               methodReq={methodReq}
+              setIsAdd={setIsAdd}
             />
           </div>
         )}
