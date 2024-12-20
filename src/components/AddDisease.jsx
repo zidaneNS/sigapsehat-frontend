@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputText from "./AddDiseaseComp/InputText";
 import InputArray from "./AddDiseaseComp/InputArray";
 import Loading from "./Loading";
@@ -45,6 +45,7 @@ const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautio
     } else {
       console.log('input field cannot be empty');
       setIsLoading(false);
+      setErrMsg('Field cannot be empty');
     }
   };
 
@@ -54,7 +55,6 @@ const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautio
       setInputs([...oldInputs, input]);
       setInput('');
     } else {
-      setErrMsg('Field cannot be empty')
     }
   };
 
@@ -62,6 +62,10 @@ const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautio
     const newInputs = inputs.filter(input => input !== element);
     setInputs(newInputs);
   };
+
+  useEffect(() => {
+    setErrMsg('');
+  }, [name, description, cautions, sympthoms, treatment]);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow-md">
@@ -119,18 +123,19 @@ const AddDisease = ({ setUpdated, initialName, initialDescription, initialCautio
         setInputs={setTreatment}
       />
 
-      {errMsg && <p className="text-red-500 text-sm">{errMsg}</p>}
+      <p className="error">{errMsg}</p>
 
       {isLoading ? (
         <Loading />
       ) : (
         <button
-          type="submit"
-          className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded shadow-md hover:bg-blue-700 focus:ring focus:ring-blue-300 transition"
+        type="submit"
+        className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded shadow-md hover:bg-blue-700 focus:ring focus:ring-blue-300 transition"
         >
           Submit
         </button>
       )}
+      
     </form>
   );
 };
