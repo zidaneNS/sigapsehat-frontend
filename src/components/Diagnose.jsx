@@ -74,19 +74,19 @@ const Diagnose = () => {
     }
   return (
     <section 
-      className="flex flex-col items-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 p-8 rounded-lg shadow-lg max-w-2xl mx-auto mt-10"
-      style={{ width: "600px", minHeight: "500px" }}
+      className="flex flex-col items-start bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 p-8 rounded-lg shadow-lg mt-20"
+      style={{ width: "600px", minHeight: "700px" }}
     >
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Diagnose</h1>
+      <h1 className="text-3xl font-bold text-center text-gray-800 mb-5">Diagnosa</h1>
       {options?.name ? (
         <>
-          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Diagnose Result:</h2>
-          <h3 className="text-xl font-medium text-blue-600 mb-2">{options.name}</h3>
-          <p className="font-semibold text-gray-800 mb-2">Symptoms:</p>
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Hasil Diagnosa:</h2>
+          <h3 className="text-xl font-bold text-blue-600 mb-2">{options.name}</h3>
+          <p className="font-semibold text-gray-800 mb-2">Gejala:</p>
           <ul className="list-disc list-inside mb-4 text-gray-700">
             {options.sympthoms.map((sympthom, i) => (<li key={i}>{sympthom}</li>))}
           </ul>
-          <p className="font-semibold text-gray-800 mb-2">Treatment you should do:</p>
+          <p className="font-semibold text-gray-800 mb-2">Penanganan yang harus dilakukan:</p>
           <ul className="list-disc list-inside text-gray-700">
             {options.treatment.map((treat, i) => (<li key={i}>{treat}</li>))}
           </ul>
@@ -107,6 +107,7 @@ const Diagnose = () => {
         Back to Home
       </Link>
     </section>
+
   )
 }
 
