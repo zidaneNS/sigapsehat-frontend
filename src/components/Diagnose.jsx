@@ -74,7 +74,7 @@ const Diagnose = () => {
     }
   return (
     <section 
-      className="flex flex-col items-start bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 p-8 rounded-lg shadow-lg mt-20 h-fit"
+      className="flex flex-col items-start bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 p-8 overflow-auto rounded-lg shadow-lg h-screen"
       style={{ width: "600px" }}
     >
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-5">Diagnosa</h1>
